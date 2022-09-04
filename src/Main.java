@@ -75,9 +75,9 @@ public class Main {
     }
 
 
-    private static String employeeAnySalary(EmployeeBook[] arr, int maxSalary) {
+    private static String employeeAnySalary(EmployeeBook[] arr, int salary) {
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getSalary() == maxSalary) {
+            if (arr[i].getSalary() == salary) {
                 return arr[i].getEmployee();
             }
         }
