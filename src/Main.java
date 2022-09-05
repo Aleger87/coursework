@@ -1,20 +1,83 @@
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Задание лайт 1");
-        taskLiteOne();
+        EmployeeBook[] employees = new EmployeeBook[10];
+        addEmployeesToArray(employees);
 
-        System.out.println("Задание Лайт 2");
-        taskLiteTwo();
+        System.out.println("Задание lite 1");
+        taskLiteOne(employees);
+
+        System.out.println("Задание lite 2");
+        taskLiteTwo(employees);
+
+        System.out.println("Задание medium 1");
+       taskLiteThree(employees);
 
     }
 
-    private static void taskLiteOne() {
-        EmployeeBook[] employees = new EmployeeBook[10];
-        addEmployeesToArray(employees);
-        int sumSalary = 0;
-        int maxSalary = 0;
+    private static void taskLiteThree(EmployeeBook[] employees) {
+        System.out.println("Индексация на 10%");
+        float index = 0.1f;
+        for (int i = 0; i < employees.length; i++) {
+            employees[i].setSalary(employees[i].getSalary() + employees[i].getSalary() * index);
+            System.out.println(employees[i]);
+        }
+
+
+            int department = employees[1].getDepartment();
+            float totalSalaryDepartment = 0f; //сумма по отделу
+            float maxSalaryDepartment = 0f; //максимум по отделу
+            float minSalaryDepartment = employees[minSalaryInDepartment(employees, department)].getSalary(); // минимум по отделу
+            int counter = 0; //счетчик сотрудников
+            for (int i = 0; i < employees.length; i++) {
+                if (employees[i].getDepartment() == department) {
+                    totalSalaryDepartment = totalSalaryDepartment + employees[i].getSalary();//верно
+                    if (maxSalaryDepartment < employees[i].getSalary()) {
+                        maxSalaryDepartment = employees[i].getSalary();
+                    } else if (minSalaryDepartment > employees[i].getSalary()) {
+                        minSalaryDepartment = employees[i].getSalary();
+                    }
+                    counter++;
+                }
+
+            }
+
+
+        String employeeMaxSalaryInDepartment = employeeAnySalary(employees, maxSalaryDepartment);
+        String employeeMinSalaryInDepartment = employeeAnySalary(employees, minSalaryDepartment);
+        float avgSalaryDepartment = totalSalaryDepartment / counter;
+
+
+        System.out.println("Сумма затрат на зарплату по отделу №" + department + " - " + totalSalaryDepartment +
+                             " \nСотрудник с максимальной зарплатой по отделу №" +department + " - "+ employeeMaxSalaryInDepartment +" - " + maxSalaryDepartment +
+                             " \nСотрудник с минимальной зарплатой по отделу №" + department + " - " + employeeMinSalaryInDepartment + " " + minSalaryDepartment +
+                             " \nСредняя сумма затрат на зарплату по отделу №" + department + " - " + avgSalaryDepartment);
+
+        System.out.println("Печать всех данных всех сотрудников отдела №" +department+", кроме номера отдела.");
+        printEmployeesDepartment (employees, department);
+
+    }
+
+
+
+    private static void printEmployeesDepartment(EmployeeBook[] employees, int department) {
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].getDepartment() == department) {
+                System.out.println( employees[i].getId() + " " +employees[i].getEmployee() + " " +employees[i].getSalary());
+            }
+
+        }
+
+    }
+
+
+    private static void taskLiteOne(EmployeeBook[] employees) {
+
+        float sumSalary = 0;
+        float maxSalary = 0;
         String employeeMaxSalary = "";
-        int minSalary = employees[0].getSalary();
+        float minSalary = employees[0].getSalary();
         String employeeMinSalary = employees[0].getEmployee();
 
 
@@ -47,24 +110,14 @@ public class Main {
         }
     }
 
-    private static void taskLiteTwo() {
-        int count = 10;
-        EmployeeBook[] employees = new EmployeeBook[count];
-        addEmployeesToArray(employees);
-        String[] name = new String[count];
-        int[] salary = new int[count];
-
-        for (int i = 0; i < employees.length; i++) {
-            name[i] = employees[i].getEmployee();
-            salary[i] = employees[i].getSalary();
-        }
-        int totalSalary = sumSalary(salary);
+    private static void taskLiteTwo(EmployeeBook[] employees) {
+        float totalSalary = sumSalary(employees);
         System.out.println("Сумма затрат в месяц: "+totalSalary);
-        int maxSalary = maxSalary(salary);
-        int minSalary = minSalary(salary);
+        float maxSalary = maxSalary(employees);
+        float minSalary = minSalary(employees);
         String employeeMaxSalary = employeeAnySalary(employees, maxSalary);
         String employeeMinSalary = employeeAnySalary(employees, minSalary);
-        float avgSalary = (float) totalSalary/employees.length;
+        float avgSalary = totalSalary/employees.length;
 
 
 
@@ -75,7 +128,7 @@ public class Main {
     }
 
 
-    private static String employeeAnySalary(EmployeeBook[] arr, int salary) {
+    private static String employeeAnySalary(EmployeeBook[] arr, float salary) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].getSalary() == salary) {
                 return arr[i].getEmployee();
@@ -84,31 +137,41 @@ public class Main {
         return "";
     }
 
-    private static int maxSalary(int[] arr) {
+    private static float maxSalary(EmployeeBook[] arr) {
+        float element = 0.0f;
+        for (int i = 0; i < arr.length; i++) {
+            if (element < arr[i].getSalary()) {
+                element = arr[i].getSalary();
+            }
+        }
+        return element;
+    }
+
+    private static float minSalary(EmployeeBook[] arr) {
+        float element = arr[0].getSalary();
+        for (int i = 0; i < arr.length; i++) {
+            if (element > arr[i].getSalary()) {
+                element = arr[i].getSalary();
+            }
+        }
+        return element;
+    }
+
+    private static int  minSalaryInDepartment(EmployeeBook[] arr, int department) {
         int element = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (element < arr[i]) {
-                element = arr[i];
-            }
-        }
-        return element;
-    }
-
-    private static int minSalary(int[] arr) {
-        int element = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (element > arr[i]) {
-                element = arr[i];
+            if (arr[i].getDepartment() == department) {
+                element = arr[i].id-1;
             }
         }
         return element;
     }
 
 
-    private static int sumSalary(int[] arr) {
-       int slr = 0;
+    private static float sumSalary(EmployeeBook[] arr) {
+       float slr = 0;
         for (int i = 0; i < arr.length; i++) {
-            slr = slr + arr[i];
+            slr = slr + arr[i].getSalary();
         }
         return slr;
     }
@@ -117,14 +180,20 @@ public class Main {
 
 
     public static void addEmployeesToArray(Object[] arr) {
-        int salary=100_000;
+        Random rnd = new Random();
         for (int i = 0; i < arr.length; i++) {
-            EmployeeBook employee = new EmployeeBook("Петров Петр Петрович"+i, 1+i, salary);
+            int department = randomNumber(5,1);
+            float salary= rnd.nextInt(100_000) + 50_000f;
+            EmployeeBook employee = new EmployeeBook("Петров Петр Петрович"+i, department, salary);
             arr[i] = employee;
-            salary += salary;
             System.out.println(employee);
         }
     }
 
+    private static int randomNumber(int i, int j) {
+        Random rnd = new Random();
+        return rnd.nextInt(i)+j;
+
+    }
 
 }

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Objects;
 
 public class EmployeeBook {
@@ -6,10 +5,10 @@ public class EmployeeBook {
 
     String employee;
     int department;
-    int salary;
+    float salary;
     int id;
 
-    public EmployeeBook(String employee, int department, int salary) {
+    public EmployeeBook(String employee, int department, float salary) {
         this.employee = employee;
         this.department = department;
         this.salary = salary;
@@ -21,7 +20,7 @@ public class EmployeeBook {
         this.department = department;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(float salary) {
         this.salary = salary;
     }
 
@@ -37,7 +36,7 @@ public class EmployeeBook {
         return department;
     }
 
-    public int getSalary() {
+    public float getSalary() {
         return salary;
     }
 
