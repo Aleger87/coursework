@@ -3,7 +3,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
        Employee[] employees = new Employee[10];
-       EmployeeBook employeeBook  = new EmployeeBook(employees);
+       EmployeeBook employeeBook  = new EmployeeBook();
        employeeBook.addEmployeesToArray(employees);
        employeeBook.getStartTaskOne(employees);
         employeeBook.getStartTaskTwo(employees);
@@ -11,7 +11,7 @@ public class Main {
        int id = 6;
        employeeBook.deleteEmployee(employees,id); //удаление сотрудника по id
 
-       System.out.println(employees[id-1] + " Сотрудник с id - " + id + " удален\n");
+       System.out.println(employees[id-1] + " Сотрудник с id - " + id + " уволен\n");
 
        employeeBook.addEmployee(employees, "Сидоров Петр Михайлович",1, 100);  // добавление нового сотрудника в пустую ячейку
        employeeBook.replaceEmployee(employees,"Иванов Иван Иванович", 4, 1_000_000, 2); // изменение данных сотрудника по id

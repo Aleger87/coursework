@@ -1,17 +1,15 @@
-import com.sun.source.tree.IfTree;
 
-import java.beans.JavaBean;
 import java.util.Arrays;
 import java.util.Random;
 
 
 
 public class EmployeeBook {
-    private Employee[] arr;
+   // private Employee[] arr;
 
-    public EmployeeBook (Employee[] arr){
-        this.arr = arr;
-    }
+    //public EmployeeBook (Employee[] arr){
+      //  this.arr = arr;
+    //}
 
     public void getStartTaskOne(Employee[] arr) {
         float totalSalary = sumSalary(arr);
@@ -28,7 +26,7 @@ public class EmployeeBook {
     }
 
     public void getStartTaskTwo(Employee[] arr) {
-        float index  = -0.10f; // процент индексации
+        float index  = -0.10f;                                                                               // процент индексации
         System.out.println("\nИндексация на " + (int) Math.round(index * 100) + "%\n");
         indexSalary(arr, index);                                                                            //вывод массива после индексации
         System.out.println("\nРабота с отделом\n");
@@ -36,22 +34,9 @@ public class EmployeeBook {
         int department = arr[departmentIndex].getDepartment();                                             //выбираем отдел по индексу
         int counter = counterEmployee(arr, department, 0);                                   //счетчик сотрудников отдела
         float totalSalaryDepartment = totalSalaryDepartment(arr, department);                             //сумма по отделу
-        float maxSalaryDepartment = maxSalaryDepartment(arr, department);                                                                   //максимум по отделу
+        float maxSalaryDepartment = maxSalaryDepartment(arr, department);                                 //максимум по отделу
         float minSalaryDepartment = arr[minSalaryInDepartment(arr, department)].getSalary();              // минимум по отделу
 
-
-       /* for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getDepartment() == department) {
-                totalSalaryDepartment = totalSalaryDepartment + arr[i].getSalary();
-                if (maxSalaryDepartment < arr[i].getSalary()) {
-                    maxSalaryDepartment = arr[i].getSalary();
-                } else if (minSalaryDepartment > arr[i].getSalary()) {
-                    minSalaryDepartment = arr[i].getSalary();
-                }
-                counter++;
-            }
-
-        }*/
         String employeeMaxSalaryInDepartment = employeeAnySalary(arr, maxSalaryDepartment);
         String employeeMinSalaryInDepartment = employeeAnySalary(arr, minSalaryDepartment);
         float avgSalaryDepartment = totalSalaryDepartment / counter;
@@ -207,10 +192,5 @@ public class EmployeeBook {
                 arr[i] = emp;
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return Arrays.toString(arr);
     }
 }
