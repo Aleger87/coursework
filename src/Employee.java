@@ -1,15 +1,15 @@
 import java.util.Objects;
 
 public class Employee {
-    static int counter =1;
+    private static int counter = 1;
 
-    String employee;
+    String fullName;
     int department;
     float salary;
     int id;
 
-    public Employee(String employee, int department, float salary) {
-        this.employee = employee;
+    public Employee(String fullName, int department, float salary) {
+        this.fullName = fullName;
         this.department = department;
         this.salary = salary;
         id = counter;
@@ -24,16 +24,16 @@ public class Employee {
         this.salary = salary;
     }
 
-    public void setEmployee(String employee) {
-        this.employee = employee;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public static int getCounter() {
         return counter;
     }
 
-    public String getEmployee() {
-        return employee;
+    public String getFullName() {
+        return fullName;
     }
 
     public int getDepartment() {
@@ -50,7 +50,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return id + " " +employee + " " + department +" "+ salary;
+        return id + " " +fullName + " " + department +" "+ salary;
     }
 
 
@@ -59,12 +59,12 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee that = (Employee) o;
-        return department == that.department && salary == that.salary && id == that.id && employee.equalsIgnoreCase(that.employee);
+        return department == that.department && salary == that.salary && id == that.id && fullName.equalsIgnoreCase(that.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employee, department, salary, id);
+        return Objects.hash(fullName, department, salary, id);
     }
 
 }

@@ -1,17 +1,8 @@
-
-import java.util.Arrays;
 import java.util.Random;
 
-
-
 public class EmployeeBook {
-   // private Employee[] arr;
 
-    //public EmployeeBook (Employee[] arr){
-      //  this.arr = arr;
-    //}
-
-    public void getStartTaskOne(Employee[] arr) {
+    public static void getStartTaskOne(Employee[] arr) {
         float totalSalary = sumSalary(arr);
         float maxSalary = maxSalary(arr);
         float minSalary = minSalary(arr);
@@ -25,7 +16,7 @@ public class EmployeeBook {
 
     }
 
-    public void getStartTaskTwo(Employee[] arr) {
+    public static void getStartTaskTwo(Employee[] arr) {
         float index  = -0.10f;                                                                               // процент индексации
         System.out.println("\nИндексация на " + (int) Math.round(index * 100) + "%\n");
         indexSalary(arr, index);                                                                            //вывод массива после индексации
@@ -51,7 +42,7 @@ public class EmployeeBook {
         printEmployeesDepartment (arr, department);
     }
 
-    private float maxSalaryDepartment(Employee[] arr, int department) {
+    private static float maxSalaryDepartment(Employee[] arr, int department) {
         float maxSalaryDepartment = 0f;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].getDepartment() == department && maxSalaryDepartment < arr[i].getSalary()) {
@@ -61,10 +52,10 @@ public class EmployeeBook {
         return maxSalaryDepartment;
     }
 
-    private float totalSalaryDepartment(Employee[] arr, int department) {
+    private static float totalSalaryDepartment(Employee[] arr, int department) {
         float  totalSalaryDepartment = 0f;
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getDepartment() == department) {
+            if (arr[i]!=null && arr[i].getDepartment() == department) {
                 totalSalaryDepartment = totalSalaryDepartment + arr[i].getSalary();
             }
 
@@ -73,16 +64,16 @@ public class EmployeeBook {
         return totalSalaryDepartment;
     }
 
-    private int counterEmployee(Employee[] arr, int department, int counterEmployee) {
+    private static int counterEmployee(Employee[] arr, int department, int counterEmployee) {
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getDepartment() == department) {
+            if (arr[i]!=null && arr[i].getDepartment() == department) {
                 counterEmployee++;
             }
         }
         return counterEmployee;
     }
 
-    private Employee[] indexSalary (Employee[] arr, float ind) {
+    private static Employee[] indexSalary (Employee[] arr, float ind) {
         for (int i = 0; i < arr.length; i++) {
             arr[i].setSalary(arr[i].getSalary() + arr[i].getSalary() * ind);
             System.out.println(arr[i]);
@@ -90,7 +81,7 @@ public class EmployeeBook {
         return arr;
     }
 
-    public Employee[] addEmployeesToArray(Employee[] arr) {
+    public static Employee[] addEmployeesToArray(Employee[] arr) {
         Random rnd = new Random();
         for (int i = 0; i < arr.length; i++) {
             int department = randomNumber(5,1);
@@ -103,31 +94,31 @@ public class EmployeeBook {
     }
 
 
-    private int randomNumber(int i, int j) {
+    private static int randomNumber(int i, int j) {
         Random rnd = new Random();
         return  rnd.nextInt(i)+j;
 
     }
-    private void printEmployeesDepartment(Employee[] employees, int department) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getDepartment() == department) {
-                System.out.println( employees[i].getId() + " " +employees[i].getEmployee() + " " +employees[i].getSalary());
+    private static void printEmployeesDepartment(Employee[] arr, int department) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i]!=null && arr[i].getDepartment() == department) {
+                System.out.println( arr[i].getId() + " " +arr[i].getFullName() + " " +arr[i].getSalary());
             }
 
         }
 
     }
 
-    private  String employeeAnySalary(Employee[] arr, float salary) {
+    private static  String employeeAnySalary(Employee[] arr, float salary) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].getSalary() == salary) {
-                return arr[i].getEmployee();
+                return arr[i].getFullName();
             }
         }
         return "";
     }
 
-    private float maxSalary(Employee[] arr) {
+    private static float maxSalary(Employee[] arr) {
         float element = 0.0f;
         for (int i = 0; i < arr.length; i++) {
             if (element < arr[i].getSalary()) {
@@ -137,7 +128,7 @@ public class EmployeeBook {
         return element;
     }
 
-    private float minSalary(Employee[] arr) {
+    private static float minSalary(Employee[] arr) {
         float element = arr[0].getSalary();
         for (int i = 0; i < arr.length; i++) {
             if (element > arr[i].getSalary()) {
@@ -147,10 +138,10 @@ public class EmployeeBook {
         return element;
     }
 
-    private int  minSalaryInDepartment(Employee[] arr, int department) {
+    private static int  minSalaryInDepartment(Employee[] arr, int department) {
         int element = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getDepartment() == department) {
+            if (arr[i]!=null && arr[i].getDepartment() == department) {
                 element = arr[i].id-1;
             }
         }
@@ -158,7 +149,7 @@ public class EmployeeBook {
     }
 
 
-    private float sumSalary(Employee[] arr) {
+    private static float sumSalary(Employee[] arr) {
         float slr = 0;
         for (int i = 0; i < arr.length; i++) {
             slr = slr + arr[i].getSalary();
@@ -166,30 +157,29 @@ public class EmployeeBook {
         return slr;
     }
 
-    public void replaceEmployee(Employee[] arr, String employee, int department, float salary, int id){
+    public static void replaceEmployee(Employee[] arr, Employee employee, int id){
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getId() == id) {
-                arr[i].setEmployee(employee);
-                arr[i].setDepartment(department);
-                arr[i].setSalary(salary);
+            if (arr[i]!=null && arr[i].getId() == id) {
+                arr[i].setFullName(employee.getFullName());
+                arr[i].setDepartment(employee.getDepartment());
+                arr[i].setSalary(employee.getSalary());
 
             }
         }
     }
 
-    public void deleteEmployee(Employee[] arr, int id){
+    public static void deleteEmployee(Employee[] arr, int id){
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getId() == id) {
+            if (arr[i]!= null && arr[i].getId() == id) {
                 arr[i] = null;
             }
         }
     }
 
-    public void addEmployee(Employee[] arr, String employee, int department, float salary){
+    public static void addEmployee(Employee[] arr, Employee employee){
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
-                Employee emp = new Employee(employee, department, salary);
-                arr[i] = emp;
+                arr[i] = employee;
             }
         }
     }
