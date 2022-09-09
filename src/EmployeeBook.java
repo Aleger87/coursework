@@ -160,10 +160,7 @@ public class EmployeeBook {
     public static void replaceEmployee(Employee[] arr, Employee employee, int id){
         for (int i = 0; i < arr.length; i++) {
             if (arr[i]!=null && arr[i].getId() == id) {
-                arr[i].setFullName(employee.getFullName());
-                arr[i].setDepartment(employee.getDepartment());
-                arr[i].setSalary(employee.getSalary());
-
+                arr[i] = employee;
             }
         }
     }
